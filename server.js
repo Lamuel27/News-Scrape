@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost/newsScraper", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/mongoMovieNews", { useNewUrlParser: true });
 
 // Routes
 
@@ -51,17 +51,14 @@ app.get("/scrape", function(req, res) {
 
         let counter = 0;
         // var dataArr = [];
-    $("article div").each(function(i, element) {
+    $("article .bc-info").each(function(i, element) {
       // Save an empty result object
       var result = {};
       
-    //   var storyDiv = $(this).children("div.story-body")
       result.url = $(this).find("a").attr("href")
-    //   var metaDiv = storyDiv.children("a").children("div.story-meta")
-      result.title = $(this).find("h3").text()
+      result.title = $(this).find(".bc-title").text()
 
-      result.summary = $(this).children("p").text()
-    //   result.summary = metaDiv.children("p.summary").text();
+      result.summary = $(this).children(".bc-excerpt").text()
 
       // Create a new Article using the `result` object built from scraping
      if (result.title && result.url && result.summary){
@@ -75,8 +72,6 @@ app.get("/scrape", function(req, res) {
           // If an error occurred, send it to the client
           return res.json(err);
         });
-        // console.log(result)
-        // console.log("added " + incr + " new items")
       }
           
 
@@ -143,9 +138,7 @@ app.post("/articles/:id", function(req, res) {
   // Create a new note and pass the req.body to the entry
   db.Note.create(req.body)
     .then(function(dbNote) {
-      // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
-      // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
-      // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+      
       return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
     })
     .then(function(dbArticle) {

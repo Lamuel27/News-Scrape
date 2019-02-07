@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
 </head>
@@ -20,7 +20,7 @@
             <div class="nav-wrapper" style="background-color: darkblue">
                 <a href="#" class="brand-logo center"><i class="material-icons left">movie</i>Cinema News Scraper</a>
                 <ul id="nav-mobile" class="left hide-on-med-and-down">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li><a href="/saved">Saved Articles</a></li>
                     <li><a href="#" data-target="modal1" class="modal-trigger" id="scrape-button">Get Scrapin!</a></li>
                 </ul>
@@ -36,17 +36,12 @@
 
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
-        <div id="scrapeModalLabel">
-        </div>
-        <div style="background-color: grey;" class="modal-content" id="scrapeModalBody">
-        </div>
+            <h5 class="modal-title" id="scrapeModalLabel"></h5>
+        <h6 class="modal-content" id="scrapeModalBody"></h6>
         <div class="modal-footer">
-            <div style="background-color: green" class="modal-footer">
-
-                <a href="/" id="scrapeModalClose" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                <a href="/" id="scrapeModalClose" class="modal-close waves-effect waves-green btn-flat light-blue">Close</a>
             </div>
         </div>
-    </div>
     <script src="app.js"></script>
 </body>
 

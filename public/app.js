@@ -16,7 +16,7 @@ $(document).ready(function () {
 
                 var artTag = $("<a class='article-title'>");
                 artTag.attr("target", "_blank")
-                artTag.attr("href", data[i].url)
+                artTag.attr("href", "https://www.screenrant.com" + data[i].url)
                 artTag.text(data[i].title)
 
                 panelTitle.append(artTag)
@@ -152,6 +152,11 @@ $(document).ready(function () {
 
             });
     });
+
+    url = 
+    // $('a href').each(function() {
+    //     $(this).attr('href', 'http://www.screenrant.com')
+    // })
 
     $(document).on("click", "#delete-button", function () {
         console.log(this)

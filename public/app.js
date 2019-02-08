@@ -40,7 +40,7 @@ $(document).ready(function () {
         });
     }
     displayArticles();
-    
+
     $(document).on("click", "#scrape-button", function () {
         $.ajax({
             method: "GET",
@@ -55,32 +55,9 @@ $(document).ready(function () {
             $("#scrapeModalBody").text("Awesome!")
             $(".modal").modal()
 
-                $("#modal1").modal("open");
+            $("#modal1").modal("open");
 
         });
-    });
-
-    $(document).on("click", "#savenote", function () {
-        var thisId = $(this).attr("data-id");
-
-        console.log(thisId)
-        console.log($("#titleinput").val())
-
-        $.ajax({
-            method: "POST",
-            url: "/articles/" + thisId,
-            data: {
-                label: $("#titleinput").val(),
-                body: $("#bodyinput").val()
-            }
-        })
-            .then(function (data) {
-                console.log(data);
-
-            });
-
-        $("#titleinput").val("");
-        $("#bodyinput").val("");
     });
 
     $(document).on("click", "#note-button", function () {
@@ -94,7 +71,7 @@ $(document).ready(function () {
         })
             .then(function (data) {
                 console.log(data);
-
+                console.log(thisId);
                 $("#noteModalLabel").empty()
                 $("#noteModalBody").empty()
                 $("#noteModalLabel").append("<br> <textarea id='titleinput' class='materialize-textarea' rows='2' placeholder='Note Title'></textarea>")
@@ -113,7 +90,7 @@ $(document).ready(function () {
             });
     });
 
-    $(document).on("click", "#savenote", function () {
+    $(document).on("click", "#savenote", function (event) {
         var thisId = $(this).attr("data-id");
 
         console.log(thisId)
@@ -123,7 +100,7 @@ $(document).ready(function () {
             method: "POST",
             url: "/articles/" + thisId,
             data: {
-                title: $("#titleinput").val(),
+                label: $("#titleinput").val(),
                 body: $("#bodyinput").val()
             }
         })
@@ -153,22 +130,40 @@ $(document).ready(function () {
             });
     });
 
-    url = 
-    // $('a href').each(function() {
-    //     $(this).attr('href', 'http://www.screenrant.com')
-    // })
+        $(document).on("click", "#delete-button", function () {
+            console.log(this)
+            var id = ($(this).attr("data-id"));
+            $.ajax({
+                method: "DELETE",
+                url: "/articles/" + id
+            }).then(function (data) {
+                console.log("hello")
+                console.log(data);
 
-    $(document).on("click", "#delete-button", function () {
-        console.log(this)
-        var id = ($(this).attr("data-id"));
-        $.ajax({
-            method: "DELETE",
-            url: "/articles/" + id
-        }).then(function (data) {
-            console.log("hello")
+                $("#" + id).remove();
+            });
+        });
+})
+
+$(document).on("click", "#savenote", function () {
+    var thisId = $(this).attr("data-id");
+
+    console.log(thisId)
+    console.log($("#titleinput").val())
+
+    $.ajax({
+        method: "POST",
+        url: "/articles/" + thisId,
+        data: {
+            label: $("#titleinput").val(),
+            body: $("#bodyinput").val()
+        }
+    })
+        .then(function (data) {
             console.log(data);
 
-            $("#" + id).remove();
         });
-    });
-})
+
+    $("#titleinput").val("");
+    $("#bodyinput").val("");
+});

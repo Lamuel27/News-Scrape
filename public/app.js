@@ -90,6 +90,7 @@ $(document).ready(function () {
             });
     });
 
+    
     $(document).on("click", "#savenote", function (event) {
         var thisId = $(this).attr("data-id");
 
@@ -145,25 +146,3 @@ $(document).ready(function () {
         });
 })
 
-$(document).on("click", "#savenote", function () {
-    var thisId = $(this).attr("data-id");
-
-    console.log(thisId)
-    console.log($("#titleinput").val())
-
-    $.ajax({
-        method: "POST",
-        url: "/articles/" + thisId,
-        data: {
-            label: $("#titleinput").val(),
-            body: $("#bodyinput").val()
-        }
-    })
-        .then(function (data) {
-            console.log(data);
-
-        });
-
-    $("#titleinput").val("");
-    $("#bodyinput").val("");
-});
